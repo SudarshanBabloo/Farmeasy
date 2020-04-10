@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+ background-image: url("{% static 'user_auth/images/bg.jpg' %}");
+ background-color: #cccccc;
+}
+    </style>    
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Ussp</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'user_auth/css/fonts/material-icon/chss/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'user_auth/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'user_auth/css/stylefg.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+<!-- jQuery library -->
+</head>
+<body>
+    <div class="container">
+        <div class="row my-5 py-5">
+          
+            <div class="col-6">
+                <p class="mt-5 pt-4 display-4">
+                    Reset Password
+                </p>
+                <form method='GET' action="{% url 'user_auth:login' %}">
+                    {% csrf_token %}
+                    <input type="hidden" class="form-control" name="1" placeholder="Password">
+                    <input type="hidden" class="form-control" name="email" placeholder="Password">
+		   </div>
+                    <button type="submit" class="btn btn-success">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>>    
+
+
+

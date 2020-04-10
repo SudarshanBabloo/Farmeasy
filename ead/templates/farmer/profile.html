@@ -1,0 +1,84 @@
+{% extends "user_auth/base.html" %}
+{% block content %}
+<head>
+
+<style>
+  body {
+    font-family: "Lato", sans-serif;
+  }
+  
+  .sidenav {
+    width: 213px;
+    position: relative;
+    z-index: 1;
+    top: 20;
+    left: 0;
+    background-color:#ffffff;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidenav a {
+    padding: 6px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #66ffff;
+    display: block;
+  }
+  
+  .sidenav a:hover {
+    color: #e0e0d1;
+  }
+  
+  .main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  </style>
+</head>
+{% if no == 0 %}
+  <script>alert("{{ messages }}")</script>
+{% endif %}
+<body>
+<div class="row">
+  <div class="col-2">
+<div id="mySidenav" class="sidenav navbar-light" >
+  &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info btn-sm"><a class="nav-link" href={% url 'farmer:edit' %}>Edit Profile</a></button>
+<a class="nav-link" href={% url 'farmer:add' %}>Add</a>
+<a class="nav-link" href={% url 'farmer:inv' %}>Inventory</a>
+<a class="nav-link" href={% url 'farmer:viewreview' %}>Reviews</a>
+<a class="nav-link" href={% url 'farmer:history' %}>History</a>
+</div>
+  </div>
+
+
+
+<div class="col-5">
+  <form method="post">{% csrf_token %}
+    <h3>Edit your Profile</h3>
+    <label>First name</label>
+    <input type="text" name="f_name" class="form-control" value ="{{p.f_name}}">
+    
+    <label>Last name</label>
+    <input type="text" name="l_name" class="form-control" value ="{{p.l_name}}">
+    
+    <label>Address</label>
+    <input type="text" name="address" class="form-control" value ="{{p.address}}">
+
+    <label>Phone no</label>
+    <input type="text" name="phone_no" class="form-control" value ="{{p.phone_no}}"><br>
+    
+  
+  <center><button class="btn waves-effect waves-light" type="submit">Edit</button></center>
+</form>
+
+  </div>
+
+                    </div>
+                </div>
+            <!-- content ends here-->
+{% endblock content %}

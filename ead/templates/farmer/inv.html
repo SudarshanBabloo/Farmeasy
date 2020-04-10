@@ -1,0 +1,76 @@
+{% extends "user_auth/base.html" %}
+{% block content %}
+<head>
+<style>
+  body {
+    font-family: "Lato", sans-serif;
+  }
+  
+  .sidenav {
+    width: 213px;
+    position: relative;
+    z-index: 1;
+    top: 20;
+    left: 0;
+    background-color:#ffffff;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidenav a {
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #66ffff;
+    display: block;
+  }
+  
+  .sidenav a:hover {
+    color: #e0e0d1;
+  }
+  
+  .main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  </style>
+</head>
+
+<body>
+<div class="row">
+  <div class="col-2">
+<div id="mySidenav" class="sidenav navbar-light" >
+  <a class="nav-link" href={% url 'farmer:edit' %}>Edit Profile</a>
+<a class="nav-link" href={% url 'farmer:add' %}>Add</a>
+<button type="button" class="btn btn-info btn-sm"><a class="nav-link" href={% url 'farmer:inv' %}>Inventory</a></button>
+<a class="nav-link" href={% url 'farmer:viewreview' %}>Reviews</a>
+<a class="nav-link" href={% url 'farmer:history' %}>History</a>
+</div>
+  </div>
+
+<div class="col-5">
+
+  <font size="6">Your current inventory:</font>
+
+  <div class="card-deck" style="width: 1000px;">
+{% for stock,i in map %}
+<div class="card" > 
+<img class="card-img-top" src="data:image/jpeg;base64,{{ i }}" style="width: 220px;height: 160px;" alt="Card image cap">
+  <div class="card-body">
+      <center><h5 class="card-title">{{ stock.crop }}</h5>
+        <p class="card-text"><h6 class="card-subtitle mb-2 text-muted">Quantiy: {{ stock.qty }} kg</h6>
+      <a href={% url 'farmer:add' %}>Add</a></p></center>
+    </div>
+  </div>
+  
+{% endfor %}
+</div>
+
+</div>
+</div>
+</div>
+{% endblock content %}

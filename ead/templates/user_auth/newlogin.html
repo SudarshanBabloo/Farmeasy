@@ -1,0 +1,101 @@
+{% load static %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+ background-image: url("{% static 'user_auth/images/bg.jpg' %}");
+ background-color: #cccccc;
+}
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'user_auth/css/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'user_auth/css/style.css' %}">
+</head>
+<body>
+    {% if type == "username" %}
+    <div class="main">
+        <h1 style="margin-left: 200px;"><a href="{% url 'user_auth:loggedinhome' %}" style="color: black;">Home</a></h1>
+
+
+        <div class="container">
+            <form method="POST" class="appointment-form" id="appointment-form" >
+                {% csrf_token %}
+                <h2>Login form</h2>
+                <div class="form-group-1">
+                    <input type="email" name="email" id="email" placeholder="email" required />
+                    <input type="hidden" name="1" id="email" placeholder="email"  />
+                    
+                </div>
+
+                
+               
+                <div class="form-submit">
+                    
+                    <div style="float: left;"><input type="submit" name="submit" id="submit" class="submit" value="Next" /></div>&nbsp;&nbsp;&nbsp;<div>   <a href="{% url 'user_auth:signup' %}" href style="text-decoration: none;" ><h3>&nbsp;&nbsp;&nbsp;Not a member?</h3></a></div>
+                </div>
+                {% if warning %}
+          <h3 class="form-signin-heading" style="color:red">*{{ warning }}</h3>
+       {% endif %}
+                
+            </form>
+            
+            
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'user_auth/js/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'user_auth/js/main.js' %}"></script>
+
+    {% endif %}
+    {%  if type == 'password' %}
+    <div class="main">
+
+        <div class="container">
+            <form method="POST" class="appointment-form" id="appointment-form" >
+                {% csrf_token %}
+                <h2>Logins form</h2>
+                <div class="form-group-1">
+                    <input type="password" name="password" id="password" placeholder="password" required />
+                    <input type="hidden" name="2" id="email" placeholder="email" value="{{ email }}"  />
+                    
+
+                    
+                </div>
+
+                
+               
+                <div class="form-submit">
+                    
+                    <div style="float: left;"><input type="submit" name="submit" id="submit" class="submit" value="Login" /></div>&nbsp;&nbsp;&nbsp;<div>   <a href="{% url 'user_auth:signup' %}" href style="text-decoration: none;" ><h3>&nbsp;&nbsp;&nbsp;Not a member?</h3></a></div>
+                    <a class="btn btn-dark " href="{% url 'user_auth:reset_password' %}" role="button">Forgot Password?</a>
+                </div>
+                {% if warning %}
+          <h3 class="form-signin-heading" style="color:red">*{{ warning }}</h3>
+       {% endif %}
+                
+            </form>
+            
+            
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'user_auth/js/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'user_auth/js/main.js' %}"></script>
+    {% endif %}
+
+    </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

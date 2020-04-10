@@ -1,0 +1,31 @@
+<form method="post" >
+    {% csrf_token %}
+<div class="md-form mt-3 ">
+    <label for="user_name">Name:</label>
+    <input type="text" id="user_name" class="form-control" name="name">
+    
+</div>
+<!--Message-->
+<div class="md-form">
+    <textarea id="address" class="form-control md-textarea" rows="2" name="address"></textarea>
+    <label for="description">Address</label>
+</div>
+<div class="md-form mt-3 ">
+    <label for="user_name">Phone:</label>
+    <input type="int" id="user_name" class="form-control" name="phone">
+    
+</div>
+<div class="md-form mt-3 ">
+    <label for="user_name">Email:</label>
+    <input type="email" id="user_name" class="form-control" name="email">
+    
+</div>
+<div class="md-form mt-3 ">
+    <label for="user_name">ID:</label>
+    <input type="int" id="user_name" class="form-control" name="id">
+    
+</div>
+
+
+<button value="submit"  type="submit" class="btn btn-primary waves-effect waves-light form-button">Submit</button>
+</form>

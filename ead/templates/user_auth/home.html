@@ -1,0 +1,22 @@
+{% extends 'user_auth/base.html' %}
+{% load static %}
+{% block content %}
+  <div>
+    
+    {% if user_type == "consumer" %}
+    <h1>You are logged in as consumer</h1>
+    {% elif user_type == "retailer" %}
+    <h1>You are logged in as retailer</h1>
+    {% elif user_type == "farmer" %}
+    <h1>You are logged in as farmer</h1>
+    {% else %}
+    <h1>Log in to avail our services</h1>
+    {% endif %}
+
+
+
+  </div> 
+
+
+  
+  {% endblock content %}

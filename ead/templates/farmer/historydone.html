@@ -1,0 +1,81 @@
+{% extends "user_auth/base.html" %}
+{% block content %}
+<head>
+<style>
+  body {
+    font-family: "Lato", sans-serif;
+  }
+  
+  .sidenav {
+    width: 213px;
+    position: relative;
+    z-index: 1;
+    top: 20;
+    left: 0;
+    background-color:#ffffff;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidenav a {
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #66ffff;
+    display: block;
+  }
+  
+  .sidenav a:hover {
+    color: #e0e0d1;
+  }
+  
+  .main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  </style>
+</head>
+
+<body>
+<div class="row">
+  <div class="col-2">
+<div id="mySidenav" class="sidenav navbar-light" >
+<a class="nav-link" href={% url 'farmer:edit' %}>Edit Profile</a>
+<a class="nav-link" href={% url 'farmer:add' %}>Add</a>
+<a class="nav-link" href={% url 'farmer:inv' %}>Inventory</a>
+<a class="nav-link" href={% url 'farmer:viewreview' %}>Reviews</a>
+&nbsp;&nbsp;<button type="button" class="btn btn-info btn-sm"><a class="nav-link" href={% url 'farmer:history' %}>History</a></button>
+</div>
+  </div>
+{% if posts %}
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Post ID</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+{% for post in posts %}
+<tr>
+<th scope="row">{{post.id}}</th>
+<td>{{post.customer}}</td>
+<td>{{post.qty}}</td>
+<td>{{post.amount}}</td>
+<td>{{post.date_ended}}</td>
+
+</tr>
+{% endfor %}
+{% else %}
+<h3>No Transaction history</h3>
+{% endif %}
+</tbody>
+</table>
+{% endblock content %}

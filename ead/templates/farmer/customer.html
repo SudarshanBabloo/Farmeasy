@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href=review.css}" >
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div style="margin-bottom:4%;">
+                <br>
+                <h3 style="color:#FA1818;">Top Reviews:</h3>
+                <br>
+                <div style="padding-left: 4%;border: ">
+                    <a name="review">
+                        {% for review in prod.review_set.all %}
+                            <p>{{ review.content }}</p>
+                            <div class="star-rating">
+                                <input id="star-5_{{ review.pk }}" type="radio" name="ratingnew_{{ review.pk }}"
+                                       value="5"
+                                       checked
+                                       disabled>
+                                <label for="star-5_{{ review.pk }}" title="5 stars">
+                                    <i class="active fa fa-star" aria-hidden="true"></i>
+                                </label>
+
+                                <input id="star-4_{{ review.pk }}" type="radio" name="ratingnew_{{ review.pk }}"
+                                       value="5"
+                                       checked
+                                       disabled>
+                                <label for="star-4_{{ review.pk }}" title="5 stars">
+                                    <i class="active fa fa-star" aria-hidden="true"></i>
+                                </label>
+                                <input id="star-3_{{ review.pk }}" type="radio" name="ratingnew_{{ review.pk }}"
+                                       value="5"
+                                       checked
+                                       disabled>
+                                <label for="star-3_{{ review.pk }}" title="5 stars">
+                                    <i class="active fa fa-star" aria-hidden="true"></i>
+                                </label>
+                                <input id="star-2_{{ review.pk }}" type="radio" name="ratingnew_{{ review.pk }}"
+                                       value="5"
+                                       checked
+                                       disabled>
+                                <label for="star-2_{{ review.pk }}" title="5 stars">
+                                    <i class="active fa fa-star" aria-hidden="true"></i>
+                                </label>
+                                <input id="star-1_{{ review.pk }}" type="radio" name="ratingnew_{{ review.pk }}"
+                                       value="5"
+                                       checked
+                                       disabled>
+                                <label for="star-1_{{ review.pk }}" title="5 stars">
+                                    <i class="active fa fa-star" aria-hidden="true"></i>
+                                </label>
+                                <script>
+                                    console.log($('input[name="ratingnew_{{ review.pk }}"]:radio'));
+                                    $($('input[name="ratingnew_{{ review.pk }}"]:radio')[5 -{{ review.rating }}])
+                                        .prop("checked", true);
+                                </script>
+                            </div>
+                            <footer class="blockquote-footer">by <cite>{{ review.customer }}</cite></footer><br>
+                        {% endfor %}
+                    </a>
+                </div>
+            </div>
+
+</body>
+</html>

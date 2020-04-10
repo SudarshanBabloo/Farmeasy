@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+ background-image: url("{% static 'user_auth/images/bg.jpg' %}");
+ background-color: #cccccc;
+}
+    </style>    
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Ussp</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'user_auth/css/fonts/material-icon/chss/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'user_auth/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'user_auth/css/stylefg.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+<!-- jQuery library -->
+</head>
+<body>
+    <div class="container">
+        <h3>Enter email to which link will be sent</h3>
+        <div class="row my-5 py-5">
+            
+            <div class="col-6">
+                <form method="POST">
+                    {% csrf_token %}
+                     
+                    
+                    <input name="email" type="email" class="form-control" placeholder="Email" required>
+		   </div>
+                     <p style="color: orangered"> {{ message }}</p>
+                    <button type="submit" type="submit" class="btn btn-success">Send Email</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>    
