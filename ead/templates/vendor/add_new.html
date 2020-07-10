@@ -38,42 +38,53 @@
     .sidenav a {font-size: 18px;}
   }
   </style>
+  <script>
+    $(".dropdown-menu li a").click(function(){
+  $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+});
+  </script>
 </head>
 
 <body>
-  <div class="container-fluid">
 <div class="row">
   <div class="col-2">
 <div id="mySidenav" class="sidenav navbar-light" >
-  <a class="nav-link" href={% url 'farmer:store' %}>Store</a>
-  <a class="nav-link" href={% url 'farmer:edit' %}>Edit Profile</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info btn-sm"><a class="nav-link" href={% url 'farmer:add' %}>Add</a></button>
-<a class="nav-link" href={% url 'farmer:inv' %}>Inventory</a>
-<a class="nav-link" href={% url 'farmer:viewreview' %}>Reviews</a>
-<a class="nav-link" href={% url 'farmer:history' %}>History</a>
+  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info btn-sm"><a class="nav-link" href={% url 'vendor:add_new' %}>Add</a></button>
+<a class="nav-link" href={% url 'vendor:inv' %}>Inventory</a>
+<a class="nav-link" href={% url 'vendor:history' %}>History</a>
 </div>
   </div>
 
 <div class="col-5">
-  <h2>Add crops to your Inventory:</h2>
+  <h2>Add Products:</h2>
 
   <form method="post" enctype="multipart/form-data">{% csrf_token %}
-        <label>Crop</label>
-        <input type="text" name="crop" class="form-control" placeholder="Crop"><br>
+
+    <label>Category</label>
+    <select name="cat" class="form-control mb-2">
+      <option value="1">Seeds</option>
+      <option value="2">Fertilizers</option>
+      <option value="3">Equipment</option>
+    </select>
+
+          <label>Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Name"><br>
+
       <div class="quantity">
         <label for="formControlRange">Quantity</label>
         <input type="int" name="qty" class="form-control" placeholder="Quantity"><br>
         <input  type="file" id="img" name="img" accept="image/*" >
-  
+        <input type="int" name="cost" class="form-control" placeholder="Cost"><br>
+        <input type="text" name="desc" class="form-control" placeholder="Description"><br>
       
       <center><button class="btn waves-effect waves-light" type="submit" value="Submit">Add</button></center>
     </center>
 </form>
 
 </div>
-            
-</div>
-</div>
+</div>     
+
 </body>
-</html>
 {% endblock content %}

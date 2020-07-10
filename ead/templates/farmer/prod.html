@@ -1,0 +1,128 @@
+{% extends "user_auth/base.html" %}
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'farmer/css/style.css' %}">
+<style>
+  body {
+    font-family: "Lato", sans-serif;
+  }
+  
+  .sidenav {
+    width: 213px;
+    position: relative;
+    z-index: 1;
+    top: 20;
+    left: 0;
+    background-color:#ffffff;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidenav a {
+    padding: 6px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #66ffff;
+    display: block;
+  }
+  .fcss{
+    padding-top: 10px;
+  }
+  .sidenav a:hover {
+    color: #e0e0d1;
+  }
+  
+  .main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  </style>
+</head>
+
+<body>
+    <div class="container">
+      <br>
+        <div class="row">
+                <div class="col-3">
+                    {% if prod.photo != None %}
+                    <img src="data:image/jpeg;base64,{{ prod_image }}" class="card-img-top" >
+                    {% endif %}
+                </div>
+                <div class="col-5">
+                    <h2>{{ prod.name }}</h2>
+                    <h4>Price: {{ prod.cost }}/kg</h4><br>
+                    <h4>Average rating: {{ prod.rating }}/5</h4><br>
+                    {{ prod.description }}<br>
+        </div>
+        <div class="col-3">
+          <br><br><br><br><br><br><br><h4><a class="btn btn-outline-primary" href={% url 'farmer:prod_review' prod.product_id %}>Add to cart</a></h4> 
+        </div>
+      </div><br>
+      <h4><a class="btn btn-outline-primary" href={% url 'farmer:prod_review' prod.product_id %}>Write review</a></h4><br>
+        <h3>Reviews:</h3>
+        {% for review in prod.reviews %}
+        <div class="row">
+            <div class="col">
+              <h4>{{ review.title }}</h4>
+                <div class="rate">
+                    {% if review.rating >= 5 %}
+                    <input type="radio" id="star5" checked disabled/>
+                    <label for="star5" title="text">5 stars</label>
+                    {% else %}
+                    <input type="radio" id="star5" disabled/>
+                    <label for="star5" title="text">5 stars</label>
+                    {% endif %}
+                    {% if review.rating >= 4 %}
+                    <input type="radio" id="star4" checked disabled/>
+                    <label for="star4" title="text">4 stars</label>
+                    {% else %}
+                    <input type="radio" id="star4" disabled/>
+                    <label for="star4" title="text">4 stars</label>
+                    {% endif %}
+                    {% if review.rating >= 3 %}
+                    <input type="radio" id="star3" checked disabled/>
+                    <label for="star3" title="text">3 stars</label>
+                    {% else %}
+                    <input type="radio" id="star3" disabled/>
+                    <label for="star3" title="text">3 stars</label>
+                    {% endif %}
+                    {% if review.rating >= 2 %}
+                    <input type="radio" id="star2" checked disabled/>
+                    <label for="star2" title="text">2 stars</label>
+                    {% else %}
+                    <input type="radio" id="star2" disabled/>
+                    <label for="star2" title="text">2 stars</label>
+                    {% endif %}
+                    {% if review.rating >= 1 %}
+                    <input type="radio" id="star1" checked disabled/>
+                    <label for="star1" title="text">1 star</label>
+                    {% else %}
+                    <input type="radio" id="star1" disabled/>
+                    <label for="star1" title="text">1 star</label>
+                    {% endif %}
+                  </div>
+                   <div class="fcss">By: {{ review.name }} on: {{ review.date }}</div>
+            </div>
+        </div>
+            <div class="row">
+              <div class="col">
+                {{ review.content }}<br><br>
+            </div>
+            </div>
+            {% endfor %}
+        
+            
+          <div class="col">
+            
+          </div>
+        </div>
+        
+        </div>
+
+
+{% endblock content %}

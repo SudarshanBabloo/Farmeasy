@@ -1,5 +1,6 @@
 {% extends "user_auth/base.html" %}
 {% block content %}
+{% load static %}
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'farmer/css/style.css' %}">
 <style>
@@ -42,24 +43,21 @@
 </head>
 
 <body>
+  <div class="container">
   <div class="row">
-    <div class="col-2">
-  <div id="mySidenav" class="sidenav navbar-light" >
-    <a class="nav-link" href={% url 'farmer:edit' %}>Edit Profile</a>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info btn-sm"><a class="nav-link" href={% url 'farmer:add' %}>Add</a></button>
-  <a class="nav-link" href={% url 'farmer:inv' %}>Inventory</a>
-  <a class="nav-link" href={% url 'farmer:viewreview' %}>Reviews</a>
-  <a class="nav-link" href={% url 'farmer:history' %}>History</a>
-  </div>
-    </div>
-  
   <div class="col-5">
-  
-  
     <h1>Review:</h1>
     <form method="POST" class="post-form">{% csrf_token %}
-		Comment
-		<input class="form-control" name = "content"  type="text"/>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Title</label>
+        <input type="text" name="title" class="form-control" id="exampleFormControlInput1">
+      </div>
+      Review
+		<div class="form-group">
+      <label for="exampleFormControlTextarea1"></label>
+      <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    Rating<br>
     <div class="rate">
       <input type="radio" id="star5" name="rate" value="5" />
       <label for="star5" title="text">5 stars</label>
@@ -71,9 +69,19 @@
       <label for="star2" title="text">2 stars</label>
       <input type="radio" id="star1" name="rate" value="1" />
       <label for="star1" title="text">1 star</label>
-    </div>
-        <button type="submit" class="save btn btn-default">Add</button>
+    </div><br><br>
+        <center><button type="submit" class="save btn btn-default">Add</button></center>
 
-		</form>
+        </form>
+    </div>
+    <div class="col">
+        {% if prod.photo != None %}
+        <img src={{ prod.photo }} class="card-img-top"><br>
+        {% endif %}
+        {{ prod.name }}<br>
+        {{ prod.cost }}<br>
+    </div>
+  </div>
+  </div>
     {% endblock content %}
   

@@ -1,0 +1,131 @@
+{% extends "user_auth/base.html" %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'farmer/css/style.css' %}">
+<style>
+  body {
+    font-family: "Lato", sans-serif;
+  }
+  .card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+  .sidenav {
+    width: 213px;
+    position: relative;
+    z-index: 1;
+    top: 20;
+    left: 10;
+    background-color:#ffffff;
+    overflow-x: hidden;
+    padding-top: 20px;
+    padding-left: 20px;
+  }
+  .vl {
+  border-left: 6px solid #746A68;
+  height: 100%;
+  position: absolute;
+  left: 20%;
+  margin-left: -3px;
+  top: 20;
+}
+  .sidenav a {
+    padding: 6px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #725555;
+    display: block;
+  }
+  
+  .sidenav a:hover {
+    color: #e0e0d1;
+  }
+  
+  .main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  </style>
+</head>
+
+<body>
+    <div class="container">
+        
+        <div class="row">
+          
+          <div class="col-3">
+            
+            <div id="mySidenav" class="sidenav navbar-light" >
+            <a class="btn-outline-primary" href={% url 'farmer:cat_price' cid %}>Sort by price</a><br>
+            <a class="btn-outline-primary" href={% url 'farmer:cat_rating' cid %}>Sort by rating</a></button>
+              </div>
+          </div>
+          <div class="vl"></div>
+          <div class="col-8">
+            {% for prod,i in map %}
+            <br>
+                <div class="row">
+                    <div class="col-3">
+                        
+                        <img src="data:image/jpeg;base64,{{ i }}" class="card-img-top" >
+                        
+                    </div>
+                    <div class="col-5">
+                      
+                        <h2><a href={% url 'farmer:prod' prod.product_id %}>{{ prod.name }}</a></h2><br>
+                        <h4>Price: {{ prod.cost }}/kg</h4><br>
+                        Average rating:<br>
+                        <div class="rate">
+                            {% if prod.rating >= 5 %}
+                            <input type="radio" id="star5" checked disabled/>
+                            <label for="star5" title="text">5 stars</label>
+                            {% else %}
+                            <input type="radio" id="star5"/>
+                            <label for="star5" title="text">5 stars</label>
+                            {% endif %}
+                            {% if prod.rating >= 4 %}
+                            <input type="radio" id="star4" checked disabled/>
+                            <label for="star4" title="text">4 stars</label>
+                            {% else %}
+                            <input type="radio" id="star4" />
+                            <label for="star4" title="text">4 stars</label>
+                            {% endif %}
+                            {% if prod.rating >= 3 %}
+                            <input type="radio" id="star3" checked disabled/>
+                            <label for="star3" title="text">3 stars</label>
+                            {% else %}
+                            <input type="radio" id="star3" />
+                            <label for="star3" title="text">3 stars</label>
+                            {% endif %}
+                            {% if prod.rating >= 2 %}
+                            <input type="radio" id="star2" checked disabled/>
+                            <label for="star2" title="text">2 stars</label>
+                            {% else %}
+                            <input type="radio" id="star2" />
+                            <label for="star2" title="text">2 stars</label>
+                            {% endif %}
+                            {% if prod.rating >= 1 %}
+                            <input type="radio" id="star1" checked disabled/>
+                            <label for="star1" title="text">1 star</label>
+                            {% else %}
+                            <input type="radio" id="star1" />
+                            <label for="star1" title="text">1 star</label>
+                            {% endif %}
+                          </div>
+                    </div>
+                </div>
+                {% endfor %}
+          </div>
+          
+        </div>
+        
+        </div>
+
+
+{% endblock content %}

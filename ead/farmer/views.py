@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from user_auth.models import farmer,Inventory,consumer,Comment
+from user_auth.models import farmer,Inventory,consumer,Comment,retailer
 from mongoengine import *
 import base64
 from PIL import Image
@@ -50,7 +50,7 @@ def reviewtext(request):
     mail = request.session['username']
     farm = farmer.objects(email=mail).get()
     #cons = consumer.objects(email = mail).get()
-    name = "Sri"
+    name = farm.name
     if request.method == 'POST':
         content = request.POST.get('content')
         rating = request.POST.get('rating')
@@ -97,7 +97,7 @@ def add(request):
         crop = request.POST.get('crop')
         qty = request.POST.get('qty')
         img = request.FILES["img"]
-        print(img.open())
+        
         # bmg =InMemoryUploadedFile(img)
         # print(bmg)
         # with open(bmg, "rb") as image_file:
@@ -162,4 +162,122 @@ def profileview(request):
         return HttpResponse('Done')
     else:
         return render(request,'farmer/test.html')
+
+def store_home(request):
+    content = {'status':2}
+    return render(request,'farmer/store.html',content)
+
+
+def cat_page(request,cid):
+    ret_mail = "abc@kartk5.com"
+    ret = retailer.objects(email=ret_mail).get()
+    prod = []
+    prod_image = []
+    for i in ret.products:
+        if i.cat_id == cid:
+            prod.append(i)
+            lmg = i["photo"].grid_id
+            col = db.images.chunks.find({"files_id":lmg})
+            my_string = base64.b64encode(col[0]["data"])
+            l = my_string.decode('utf-8')
+            prod_image.append(l)
+    map = zip(prod,prod_image) 
+    content = {'product':prod,'map':map,'status':2,'cid':cid}
+    return render(request,'farmer/cat.html',content)
+
+def cat_page_by_price(request,cid):
+    ret_mail = "abc@kartk5.com"
+    ret = retailer.objects(email=ret_mail).get()
+    prod_image = []
+    prod = []
+    for i in ret.products:
+        if i.cat_id == cid:
+            prod.append(i)
+            lmg = i["photo"].grid_id
+            col = db.images.chunks.find({"files_id":lmg})
+            my_string = base64.b64encode(col[0]["data"])
+            l = my_string.decode('utf-8')
+            prod_image.append(l)
+
+    map = list(zip(prod,prod_image))
+    map.sort(key=lambda x:x[0].cost)
+    
+    
+    content = {'product':prod,'map':map,'status':2,'cid':cid}
+    return render(request,'farmer/cat.html',content)
+
+def cat_page_by_rating(request,cid):
+    ret_mail = "abc@kartk5.com"
+    ret = retailer.objects(email=ret_mail).get()
+    prod_image = []
+    prod = []
+    for i in ret.products:
+        if i.cat_id == cid:
+            prod.append(i)
+            lmg = i["photo"].grid_id
+            col = db.images.chunks.find({"files_id":lmg})
+            my_string = base64.b64encode(col[0]["data"])
+            l = my_string.decode('utf-8')
+            prod_image.append(l)
+    
+    
+    map = list(zip(prod,prod_image))
+    map.sort(key=lambda x:x[0].cost)
+    content = {'product':prod,'map':map,'status':2,'cid':cid}
+    return render(request,'farmer/cat.html',content)
+
+def prod_page(request,pid):
+    ret_mail = "abc@kartk5.com"
+    ret = retailer.objects(email=ret_mail).get()
+    
+    for i in ret.products:
+        if i.product_id == pid:
+            prod = i
+            lmg = i["photo"].grid_id
+            col = db.images.chunks.find({"files_id":lmg})
+            my_string = base64.b64encode(col[0]["data"])
+            l = my_string.decode('utf-8')
+            prod_image = l
+            break
+    print(prod.reviews)
+    content = {'prod':prod,'prod_image':prod_image,'status':2}
+    return render(request,'farmer/prod.html',content)
+
+
+def prod_review(request,pid):
+    ret_mail = "abc@kartk5.com"
+    ret = retailer.objects(email=ret_mail).get()
+    mail = request.session['username']
+    farm = farmer.objects(email=mail).get()
+    name = farm.l_name
+ 
+    for i in ret.products:
+        if i.product_id == pid:
+            current = i
+    
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        rating = request.POST.get('rate')
+        rating = int(rating)
+        date = datetime.now()
+        print(content,rating)
+        comment = Comment(title=title,content=content,rating=rating,name = name,date=date)
+        current.reviews.append(comment)
+        print(current.reviews)
+        if current.rating != None:
+            current.rating = (current.rating+rating)/len(current.reviews)+1
+        else:
+            current.rating = rating
+        ret.save()   
+        return prod_page(request,pid)
+    else:
+        content = {'status':2}
+        return render(request,'farmer/review_prod.html',content)
+
+
+
+def star(request):
+    content = {'rat':3}
+    return render(request,'farmer/rating.html',content)
 

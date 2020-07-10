@@ -194,6 +194,7 @@ def loggedinhome(request):
             user_type='consumer'
         if request.session['status']==1:
             user_type='retailer'
+            return redirect('vendor:index')
         if request.session['status']==2:
             user_type='farmer'
             return redirect('farmer:add') 

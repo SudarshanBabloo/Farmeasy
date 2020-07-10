@@ -15,9 +15,9 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMP_DIR=os.path.join(BASE_DIR,'templates')
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
+    os.path.join(BASE_DIR, "static")
 ]
 MEDIA_DIR=os.path.join(BASE_DIR,'media')
 
@@ -47,10 +47,9 @@ EMAIL_HOST_PASSWORD = 'harsha94$'
 
 INSTALLED_APPS = [
     'user_auth',
-    # 'channels',
-    # 'chat',
+    'channels',
+    'chat',
     'farmer',
-    'consumer',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -146,4 +145,3 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'

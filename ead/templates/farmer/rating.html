@@ -1,0 +1,63 @@
+{% load static %}
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="{% static 'farmer/css/style.css' %}">
+  <title>Star rating using pure CSS</title>
+</head>
+
+<body>
+  <div class="rate">
+    <input type="radio" id="star5" name="rate" value="5" />
+    <label for="star5" title="text">5 stars</label>
+    <input type="radio" id="star4" name="rate" value="4" />
+    <label for="star4" title="text">4 stars</label>
+    <input type="radio" id="star3" name="rate" value="3" />
+    <label for="star3" title="text">3 stars</label>
+    <input type="radio" id="star2" name="rate" value="2" />
+    <label for="star2" title="text">2 stars</label>
+    <input type="radio" id="star1" name="rate" value="1" />
+    <label for="star1" title="text">1 star</label>
+  </div>
+  hi
+  <div class="rate">
+    {% if rat >= 5 %}
+    <input type="radio" id="star5" checked/>
+    <label for="star5" title="text">5 stars</label>
+    {% else %}
+    <input type="radio" id="star5"/>
+    <label for="star5" title="text">5 stars</label>
+    {% endif %}
+    {% if rat >= 4 %}
+    <input type="radio" id="star4" checked/>
+    <label for="star4" title="text">4 stars</label>
+    {% else %}
+    <input type="radio" id="star4" />
+    <label for="star4" title="text">4 stars</label>
+    {% endif %}
+    {% if rat >= 3 %}
+    <input type="radio" id="star3" checked/>
+    <label for="star3" title="text">3 stars</label>
+    {% else %}
+    <input type="radio" id="star3" />
+    <label for="star3" title="text">3 stars</label>
+    {% endif %}
+    {% if rat >= 2 %}
+    <input type="radio" id="star2" checked/>
+    <label for="star2" title="text">2 stars</label>
+    {% else %}
+    <input type="radio" id="star2" />
+    <label for="star2" title="text">2 stars</label>
+    {% endif %}
+    {% if rat >= 1 %}
+    <input type="radio" id="star1" checked/>
+    <label for="star1" title="text">1 star</label>
+    {% else %}
+    <input type="radio" id="star1" />
+    <label for="star1" title="text">1 star</label>
+    {% endif %}
+  </div>
+</body>
+
+</html>

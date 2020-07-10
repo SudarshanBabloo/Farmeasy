@@ -5,20 +5,7 @@
   body {
     font-family: "Lato", sans-serif;
   }
-
-  .card-img-top {
-    width: 100%;
-    height: 15vw;
-    object-fit: cover;
-}
-@media (min-width:768px) {
-    .card-deck > .card
-    {
-        width: 25%;
-        flex-wrap: wrap;
-        flex: initial; 
-    }
-}
+  
   .sidenav {
     width: 213px;
     position: relative;
@@ -31,7 +18,7 @@
   }
   
   .sidenav a {
-    padding: 6px 6px 6px 32px;
+    padding: 6px 32px;
     text-decoration: none;
     font-size: 25px;
     color: #66ffff;
@@ -54,37 +41,39 @@
 </head>
 
 <body>
-<div class="row">
+<!-- <div class="row">
   <div class="col-2">
 <div id="mySidenav" class="sidenav navbar-light" >
-  <a class="nav-link" href={% url 'farmer:store' %}>Store</a>
   <a class="nav-link" href={% url 'farmer:edit' %}>Edit Profile</a>
-<a class="nav-link" href={% url 'farmer:add' %}>Add</a>
-<button type="button" class="btn btn-info btn-sm"><a class="nav-link" href={% url 'farmer:inv' %}>Inventory</a></button>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info btn-sm"><a class="nav-link" href={% url 'farmer:add' %}>Add</a></button>
+<a class="nav-link" href={% url 'farmer:inv' %}>Inventory</a>
 <a class="nav-link" href={% url 'farmer:viewreview' %}>Reviews</a>
 <a class="nav-link" href={% url 'farmer:history' %}>History</a>
 </div>
+  </div> -->
+
+<div class="col-5">
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="" alt="Card image cap">
+    <div class="card-img-overlay">
+      <h5 class="card-title">Seeds</h5>
+      </div>
   </div>
-
-<div class="col-10">
-
-  <font size="6">Your current inventory:</font>
-  
-  <div class="card-deck" >
-    {% for stock,i in map %}
-<div class="card"> 
-<img class="card-img-top" src="data:image/jpeg;base64,{{ i }}" alt="Card image cap">
-  <div class="card-body">
-      <center><h5 class="card-title">{{ stock.crop }}</h5>
-        <p class="card-text"><h6 class="card-subtitle mb-2 text-muted">Quantiy: {{ stock.qty }} kg</h6>
-      <a href={% url 'farmer:add' %}>Add</a></p></center>
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="" alt="Card image cap">
+    <div class="card-img-overlay">
+      <h5 class="card-title">Fertilizers</h5>
+      </div>
+  </div>
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="" alt="Card image cap">
+    <div class="card-img-overlay">
+      <h5 class="card-title">Equipment</h5>
     </div>
   </div>
-  
-{% endfor %}
-</div>
 
 </div>
+            
 </div>
 </div>
 {% endblock content %}

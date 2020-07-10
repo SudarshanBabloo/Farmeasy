@@ -5,20 +5,12 @@
   body {
     font-family: "Lato", sans-serif;
   }
-
   .card-img-top {
     width: 100%;
     height: 15vw;
     object-fit: cover;
 }
-@media (min-width:768px) {
-    .card-deck > .card
-    {
-        width: 25%;
-        flex-wrap: wrap;
-        flex: initial; 
-    }
-}
+  
   .sidenav {
     width: 213px;
     position: relative;
@@ -29,6 +21,15 @@
     overflow-x: hidden;
     padding-top: 20px;
   }
+  
+@media (min-width:768px) {
+    .card-deck > .card
+    {
+        width: 25%;
+        flex-wrap: wrap;
+        flex: initial; 
+    }
+}
   
   .sidenav a {
     padding: 6px 6px 6px 32px;
@@ -57,27 +58,25 @@
 <div class="row">
   <div class="col-2">
 <div id="mySidenav" class="sidenav navbar-light" >
-  <a class="nav-link" href={% url 'farmer:store' %}>Store</a>
-  <a class="nav-link" href={% url 'farmer:edit' %}>Edit Profile</a>
-<a class="nav-link" href={% url 'farmer:add' %}>Add</a>
-<button type="button" class="btn btn-info btn-sm"><a class="nav-link" href={% url 'farmer:inv' %}>Inventory</a></button>
-<a class="nav-link" href={% url 'farmer:viewreview' %}>Reviews</a>
-<a class="nav-link" href={% url 'farmer:history' %}>History</a>
+<a class="nav-link" href={% url 'vendor:add_new' %}>Add</a>
+<button type="button" class="btn btn-info btn-sm"><a class="nav-link" href={% url 'vendor:inv' %}>Inventory</a></button>
+<a class="nav-link" href={% url 'vendor:history' %}>History</a>
 </div>
   </div>
 
 <div class="col-10">
 
   <font size="6">Your current inventory:</font>
-  
   <div class="card-deck" >
     {% for stock,i in map %}
 <div class="card"> 
 <img class="card-img-top" src="data:image/jpeg;base64,{{ i }}" alt="Card image cap">
   <div class="card-body">
-      <center><h5 class="card-title">{{ stock.crop }}</h5>
-        <p class="card-text"><h6 class="card-subtitle mb-2 text-muted">Quantiy: {{ stock.qty }} kg</h6>
-      <a href={% url 'farmer:add' %}>Add</a></p></center>
+      <center><h5 class="card-title">{{ stock.name }}</h5>
+        <p class="card-text"><h6 class="card-subtitle mb-2 text-muted">Quantiy: {{ stock.stock }} kg</h6>
+        <p class="card-text"><h6 class="card-subtitle mb-2 text-muted">Price: {{ stock.cost }} Rs/kg</h6>
+        <p class="card-text"><h6 class="card-subtitle mb-2 text-muted">Average Rating: {{ stock.rating }} </h6>
+      <a href={% url 'vendor:add' stock.product_id %}>Add stock</a></p></center>
     </div>
   </div>
   
