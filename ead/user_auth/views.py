@@ -68,17 +68,17 @@ def signup(request):
                         mail = request.POST["email"]
                         password=encrypt_string(str(request.POST["password"]))
                         if(request.POST["user_type"]=="consumer"):
-                            user = consumer(email=request.POST["email"], password=password,f_name=request.POST["f_name"],l_name=request.POST["l_name"],address=request.POST["address"],phone_no=request.POST["phone_no"],created_date=datetime.datetime.now())
+                            user = consumer(email=request.POST["email"], password=password,f_name=request.POST["f_name"],l_name=request.POST["l_name"],address=request.POST["address"],phone_no=request.POST["phone_no"],created_date=datetime.datetime.now(),location=[float(request.POST['latitude']), float(request.POST['longitude'])])
                             user.email_verified = False
                             user.save()
                             request.session['status']=0
                         elif(request.POST["user_type"]=="retailer"):
-                            user = retailer(email=request.POST["email"], password=password,f_name=request.POST["f_name"],l_name=request.POST["l_name"],address=request.POST["address"],phone_no=request.POST["phone_no"],created_date=datetime.datetime.now())
+                            user = retailer(email=request.POST["email"], password=password,f_name=request.POST["f_name"],l_name=request.POST["l_name"],address=request.POST["address"],phone_no=request.POST["phone_no"],created_date=datetime.datetime.now(),location=[float(request.POST['latitude']), float(request.POST['longitude'])])
                             user.email_verified = False
                             user.save()
                             request.session['status']=1
                         elif(request.POST["user_type"]=="farmer"):
-                            user = farmer(email=request.POST["email"], password=password,f_name=request.POST["f_name"],l_name=request.POST["l_name"],address=request.POST["address"],phone_no=request.POST["phone_no"],created_date=datetime.datetime.now())
+                            user = farmer(email=request.POST["email"], password=password,f_name=request.POST["f_name"],l_name=request.POST["l_name"],address=request.POST["address"],phone_no=request.POST["phone_no"],created_date=datetime.datetime.now(),location=[float(request.POST['latitude']), float(request.POST['longitude'])])
                             user.email_verified = False
                             user.save()
                             request.session['status']=2        
@@ -114,7 +114,10 @@ def signup(request):
 e,u=check_user_exists(None,'a@gmail.com')
 def login(request):
     if request.method=='GET':
-        return render(request,'user_auth/newlogin.html',{'type':'username'})
+        if request.session.has_key('username'):
+            return loggedinhome(request)
+        else:
+            return render(request,'user_auth/newlogin.html',{'type':'username'})
     elif request.method=='POST':
         if "1" in request.POST:
             if "email" in request.POST:

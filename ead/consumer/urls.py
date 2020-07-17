@@ -6,4 +6,5 @@ app_name = "consumer"
 
 urlpatterns = [
        path('review/',views.reviewtext,name='review'),
+       path('search/', views.search, name="search")
 ]

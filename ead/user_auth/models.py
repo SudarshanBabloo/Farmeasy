@@ -15,6 +15,7 @@ class consumer(Document):
     created_date = DateTimeField()
     email_verified = BooleanField(default=False)
     phone_no = StringField(max_length=10)
+    location = PointField(auto_index=True)
 
 class Comment(EmbeddedDocument):
     title = StringField()
@@ -49,6 +50,7 @@ class retailer(Document):
     email_verified = BooleanField(default=False)
     phone_no = StringField(max_length=10)
     products = ListField(EmbeddedDocumentField(Product))
+    location = PointField(auto_index=True)
 
 
 class Message(Document):
@@ -83,6 +85,7 @@ class farmer(Document):
     phone_no=StringField(max_length=10)
     stock = ListField(EmbeddedDocumentField(Inventory))
     reviews = ListField(EmbeddedDocumentField(Comment))
+    location = PointField(auto_index=True)
     
     
     # items=EmbeddedDocumentListField('crops')

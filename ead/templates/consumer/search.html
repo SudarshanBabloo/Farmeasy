@@ -1,0 +1,7 @@
+<form method="POST" action="{% url 'consumer:search' %}">
+    {% csrf_token %}
+    <input type="text" name="product" placeholder="Product Name">
+    <input type="number" name="distance" placeholder="Distance (in kms)" step="any">
+    <input type="number" name="quantity" placeholder="Quantity (in kg)">
+    <button type="submit">Search</button>
+</form>
