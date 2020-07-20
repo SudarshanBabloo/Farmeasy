@@ -24,4 +24,5 @@ urlpatterns = [
     path('prod/<int:pid>/',views.prod_page,name='prod'),
     path('prod_review/<int:pid>/',views.prod_review,name='prod_review'),
     path('star/',views.star,name='star'),
+    path('deals/', views.deals,name='deals')
 ]

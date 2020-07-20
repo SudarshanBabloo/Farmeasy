@@ -6,5 +6,6 @@ app_name = "consumer"
 
 urlpatterns = [
        path('review/',views.reviewtext,name='review'),
-       path('search/', views.search, name="search")
+       path('search/', views.search, name="search"),
+       path('farmer_page/<str:enc>/', views.farmer_page, name="farmer_page"),
 ]

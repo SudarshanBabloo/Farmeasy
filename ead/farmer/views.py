@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from user_auth.models import farmer,Inventory,consumer,Comment,retailer
+from user_auth.models import farmer,Inventory,consumer,Comment,retailer,transactions
 from mongoengine import *
 import base64
 from PIL import Image
@@ -281,3 +281,30 @@ def star(request):
     content = {'rat':3}
     return render(request,'farmer/rating.html',content)
 
+def deals(request):
+    if request.session.has_key('username'):
+        if request.method == 'GET':
+            f = farmer.objects.get(email = request.session['username'])
+            trs = transactions.objects(farmer_id = f)
+            clist = []
+            for t in trs:
+                c = consumer.objects.get(id = t.consumer_id.id)
+                a = {}
+                a['name'] = c.f_name
+                a['phone'] = c.phone_no
+                a['product'] = t.product
+                a['quantity'] = t.quantity
+                clist.append(a)
+            print(clist)
+            return render(request, 'farmer/deals.html', {'clist': clist})
+    else:
+        return redirect('user_auth:login')
+
+def deal_page(request):
+    if request.session.has_key('username'):
+        if request.method == 'GET':
+            return render(request, 'farmer/deal_page.html')
+        elif request.method == 'POST':
+            return render(request, 'farmer/deal_page.html')
+    else:
+        return redirect('user_auth:login')

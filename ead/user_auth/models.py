@@ -86,15 +86,6 @@ class farmer(Document):
     stock = ListField(EmbeddedDocumentField(Inventory))
     reviews = ListField(EmbeddedDocumentField(Comment))
     location = PointField(auto_index=True)
-    
-    
-    # items=EmbeddedDocumentListField('crops')
-# class crops(Document):
-#     vegetable=StringField(max_length=20)
-#     quantity=IntField()    
-
-
-
 
 
 # class Product_post(Document):
@@ -120,12 +111,14 @@ class farmer(Document):
 #     farmer_id_2=ReferenceField(Farmer)
 #     text=StringField(max_length=200)
 #     image=ImageField()
-# class transactions(Document):
-#     consumer_id=ReferenceField(consumer)
-#     farmer_id=ReferenceField(Farmer)
-#     consumer_price=FloatField()
-#     farmer_price=FloatField()
-#     deal_status=IntField()
+
+class transactions(Document):
+    consumer_id=ReferenceField(consumer)
+    farmer_id=ReferenceField(farmer)
+    price=FloatField()
+    product=StringField()
+    quantity=IntField()
+    deal_status=StringField()
             
 
 
